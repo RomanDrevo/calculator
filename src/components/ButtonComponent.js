@@ -6,7 +6,7 @@ class ButtonComponent extends Component {
         onClick={this.props.onClick}
         className="action-button"
         data-size={this.props.size}
-        data-value={this.props.value}
+        action={this.props.value}
       >
         {this.props.label}
       </div>

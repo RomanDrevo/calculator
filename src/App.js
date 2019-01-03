@@ -10,18 +10,20 @@ class App extends Component {
         operations: []
     }
 
-    calculateOperations = () => {
+    calculate = () => {
         let result = this.state.operations.join('')
+        console.log(result)
         if (result) {
-            result = math.eval(result)
-            result = math.format(result, {precision: 14})
+            result = eval(result)
+            console.log(eval(result))
             this.setState({
                 operations: [result],
             })
         }
     }
     handleClick = e => {
-        const value = e.target.getAttribute('data-value')
+        const value = e.target.getAttribute('action')
+        console.log(value)
         switch (value) {
             case 'clear':
                 this.setState({
@@ -29,7 +31,7 @@ class App extends Component {
                 })
                 break
             case 'equal':
-                this.calculateOperations()
+                this.calculate()
                 break
             default:
                 const newOperations = update(this.state.operations, {
