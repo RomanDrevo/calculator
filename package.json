@@ -1,15 +1,11 @@
 {
-  "name": "react-calculator",
-  "version": "0.0.1",
-  "private": true,
+  "name": "calculator",
   "engines": {
     "npm": "6.1.0",
     "node": "8.11.3"
   },
   "dependencies": {
     "basscss": "^8.0.10",
-    "immutability-helper": "^2.7.1",
-    "mathjs": "^5.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4"
