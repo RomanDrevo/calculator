@@ -50,7 +50,7 @@ body {
   min-width: 25%;
 }
 
-.action-button[data-size="2"] {
+.action-button[size="2"] {
   height: 40%;
 }
 
