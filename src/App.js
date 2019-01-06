@@ -7,109 +7,106 @@ import Test from "./components/Test";
 
 
 
-class App extends Component {
+const App  = () => {
 
-    state = {
-        // symbols: [],
-        operation: '',
-        result: 0
-    }
+    // state = {
+    //     // symbols: [],
+    //     operation: '',
+    //     result: 0
+    // }
+
+    const [operation, setOperation] = useState('')
+    const [result, setResult] = useState(0)
 
 
-    calculate = () => {
-        let res = this.state.operation
+    const calculate = () => {
+        let res = operation
         if(res){
             res = eval(res)
             console.log(eval(res))
-            this.setState({
-                result: res,
-            })
+            // this.setState({
+            //     result: res,
+            // })
+            setResult(res)
         }
     }
 
-    handleOnClick = debounce(
+    const handleOnClick = debounce(
         value => {
             // const value = str.target.getAttribute('action')
             switch (value) {
                 case 'clear':
-                    this.setState({
-                        operation: '',
-                        result: 0
-                    })
+                    setOperation('')
+                    setResult(0)
                     break
                 case 'equal':
-                    this.calculate()
+                    calculate()
                     break
                 default:
-                    this.setState({
-                        operation: this.state.operation + value
-                    })
+                    setOperation(operation + value)
                     break
             }
         }, 300
     )
 
-    handleOnChange = debounce(value => {
-
+    const handleOnChange = debounce(value => {
         if(value === '='){
-            console.log('equal')
-            this.calculate()
+            calculate()
             return null
         }else {
-            this.setState({
-                operation: value,
-            })
+
+            setOperation(value)
         }
     }, 500)
 
 
-    handleKeyPress = (e)=> {
+    const handleKeyPress = (e)=> {
         if (e.key === 'Enter' || e.key === '=') {
-            this.calculate()
+            calculate()
         }
     }
 
-    render() {
-        console.log('App rendering...')
+
         return (
             <div className="App">
-                {/*<Test />*/}
+                <Test />
                 {/*<input onChange={(e) => this.handleOnChange(e.target.value)} />*/}
-                <DisplayComponent data={this.state.result}/>
+                <DisplayComponent data={result}/>
                 <div className="display">
                     <input
-                        onKeyPress={this.handleKeyPress}
-                        value={this.state.operation}
-                        onChange={(e) => this.handleOnChange(e.target.value)}
+                        onKeyPress={()=>handleKeyPress()}
+                        value={operation}
+                        onChange={(e) => handleOnChange(e.target.value)}
                     />
                     {/*{symbols}*/}
                 </div>
                 <div className="buttons-wrapper flex flex-wrap flex-column">
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="C" value="clear"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="7" value="7"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="4" value="4"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="1" value="1"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="0" value="0"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="C" value="clear"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="7" value="7"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="4" value="4"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="1" value="1"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="0" value="0"/>
 
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="/" value="/"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="8" value="8"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="5" value="5"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="2" value="2"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="." value="."/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="/" value="/"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="8" value="8"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="5" value="5"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="2" value="2"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="." value="."/>
 
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="*" value="*"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="9" value="9"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="6" value="6"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="3" value="3"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="*" value="*"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="9" value="9"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="6" value="6"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="3" value="3"/>
                     <ButtonComponent symbol="" value="null"/>
 
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="-" value="-"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="+" size="2" value="+"/>
-                    <ButtonComponent onClick={(e)=>this.handleOnClick(e.target.getAttribute('action'))} symbol="=" size="2" value="equal"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="-" value="-"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="+" size="2" value="+"/>
+                    <ButtonComponent onClick={(e)=>handleOnClick(e.target.getAttribute('action'))} symbol="=" size="2" value="equal"/>
                 </div>
             </div>
         )
-    }
+
 }
 
 export default App
+
