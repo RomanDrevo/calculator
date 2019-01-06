@@ -1,21 +1,20 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 
-class DisplayComponent extends Component {
+const DisplayComponent = ({data}) => {
 
-    state = {
-        symbol: ''
-    }
+    // state = {
+    //     x: 666
+    // }
 
-
-    render() {
-        // console.log('display props: ', this.props)
-        const symbols = this.props.data
+    // const [x, setX] = useState(444)
+    // const [count, setCount] = useState(0);
         return (
             <div className="display">
-                {symbols}
+                {/*<h1>{count}</h1>*/}
+                {data}
             </div>
         )
-    }
+
 }
 
 export default DisplayComponent

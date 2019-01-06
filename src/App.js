@@ -1,50 +1,40 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import './App.css'
 import DisplayComponent from './components/DisplayComponent'
 import ButtonComponent from './components/ButtonComponent'
 import {debounce} from "lodash"
+import Test from "./components/Test";
+
+
 
 class App extends Component {
 
     state = {
         // symbols: [],
-        operation: ''
+        operation: '',
+        result: 0
     }
 
+
     calculate = () => {
-        // let result = this.state.symbols.join('')
-        // // console.log(this.state.symbols)
-        // if (result) {
-        //     result = eval(result)
-        //     console.log(eval(result))
-        //     this.setState({
-        //         symbols: [result],
-        //     })
-        // }
-
         let res = this.state.operation
-
         if(res){
             res = eval(res)
             console.log(eval(res))
             this.setState({
-                operation: res,
+                result: res,
             })
         }
     }
 
-
-
-
     handleOnClick = debounce(
         value => {
             // const value = str.target.getAttribute('action')
-            console.log('value: ', value)
-
             switch (value) {
                 case 'clear':
                     this.setState({
                         operation: '',
+                        result: 0
                     })
                     break
                 case 'equal':
@@ -52,7 +42,6 @@ class App extends Component {
                     break
                 default:
                     this.setState({
-                        // symbols: [...this.state.symbols, value],
                         operation: this.state.operation + value
                     })
                     break
@@ -61,54 +50,32 @@ class App extends Component {
     )
 
     handleOnChange = debounce(value => {
-        console.log('value: ', value)
-
-
-        // switch (symbol) {
-        //     case 'clear':
-        //         this.setState({
-        //             symbols: [],
-        //         })
-        //         break
-        //     case '=':
-        //         this.calculate()
-        //         break
-        //     default:
-        //
-        //         this.setState({
-        //             operation: symbol
-        //         })
-        //         break
-        // }
 
         if(value === '='){
             console.log('equal')
             this.calculate()
             return null
         }else {
-            // console.log('value: ', value)
             this.setState({
                 operation: value,
-                // symbols: [...this.state.symbols, value]
             })
         }
-
     }, 500)
 
 
     handleKeyPress = (e)=> {
-        // console.log('e.key: ', e.key);
         if (e.key === 'Enter' || e.key === '=') {
-
             this.calculate()
         }
     }
 
     render() {
+        console.log('App rendering...')
         return (
             <div className="App">
+                {/*<Test />*/}
                 {/*<input onChange={(e) => this.handleOnChange(e.target.value)} />*/}
-                <DisplayComponent data={this.state.operation}/>
+                <DisplayComponent data={this.state.result}/>
                 <div className="display">
                     <input
                         onKeyPress={this.handleKeyPress}
