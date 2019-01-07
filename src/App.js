@@ -26,8 +26,6 @@ const App = () => {
         }
         catch (e) {
             console.log("e: ", e)
-            // alert('')
-            // setShow(true)
             setOperation('')
             setResult(0)
         }
