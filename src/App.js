@@ -3,20 +3,35 @@ import './App.css'
 import DisplayComponent from './components/DisplayComponent'
 import ButtonComponent from './components/ButtonComponent'
 import {debounce} from "lodash"
-
+import SweetAlert from 'sweetalert2-react';
 
 const App = () => {
+    const regEx = /([-+]?[0-9]*\.?[0-9]+[\/\+\-\*])+([-+]?[0-9]*\.?[0-9]+)/g;
+
     const [operation, setOperation] = useState('')
 
     const [result, setResult] = useState(0)
 
+    const [show, setShow] = useState(false)
+
     const calculate = () => {
         let res = operation
-        if (res) {
-            res = eval(res)
-            console.log(eval(res))
-            setResult(res)
+
+        try{
+            !regEx.test(res) && setShow(true)
+            if (res) {
+                res = eval(res)
+                setResult(res)
+            }
         }
+        catch (e) {
+            console.log("e: ", e)
+            // alert('')
+            // setShow(true)
+            setOperation('')
+            setResult(0)
+        }
+
     }
 
     const handleOnClick = debounce(
@@ -55,6 +70,12 @@ const App = () => {
 
     return (
         <div className="App">
+            <SweetAlert
+                show={show}
+                title="Error!"
+                text="Only numbers and math operators are accepted!"
+                onConfirm={() => setShow(false)}
+            />
             {/*<input onChange={(e) => this.handleOnChange(e.target.value)} />*/}
             <DisplayComponent data={result}/>
             <div className="display">
